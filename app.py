@@ -87,7 +87,7 @@ def chatbot_page():
     with col1:
         st.image("assets/img.webp", width=50)
     with col2:
-        st.markdown("<h1 style='padding-top: 5px;'>Yabatech EduBot</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 style='padding-top: 5px;'>Yabatech Faq Assistant</h1>", unsafe_allow_html=True)
 
     st.caption("Ask your question below:")
 
