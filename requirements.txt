@@ -1,3 +1,7 @@
 pandas
 streamlit
 rapidfuzz
+openai
+python-dotenv
+pytesseract
+pillow
