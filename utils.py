@@ -7,10 +7,13 @@ def get_dummy_response(prompt):
     try:
         response = requests.get(f"https://dummyjson.com/todos/search?q={prompt}")
         data = response.json()
-        if data['todos']:
-            return data['todos'][0]['todo']
+
+        # Safely check if any result was found
+        if data.get('todos') and len(data['todos']) > 0:
+            return data['todos'][0].get('todo', "No todo text found.")
         else:
-            return "I'm not sure how to respond to that."
+            return "No matching results found."
+
     except Exception as e:
         return f"An error occurred: {e}"
 
