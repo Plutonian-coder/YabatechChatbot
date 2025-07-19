@@ -1,8 +1,5 @@
 import streamlit as st
-from utils import get_openai_response, load_api_key
-
-# Load API key
-load_api_key()
+from utils import get_dummy_response
 
 st.set_page_config(page_title="Yabatech Faq Assitant", page_icon="🎓", layout="centered")
 
@@ -35,23 +32,22 @@ def welcome_page():
 
 
 from utils import process_image_with_ocr
+from streamlit_lottie import st_lottie
+import requests
 
-if "theme" not in st.session_state:
-    st.session_state.theme = "light"
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
 def chatbot_page():
-    # Theme toggle
-    if st.button("Toggle Theme", key="theme_toggle"):
-        st.session_state.theme = "dark" if st.session_state.theme == "light" else "light"
-        st.rerun()
+    lottie_url = "https://assets5.lottiefiles.com/packages/lf20_v1yudgjg.json"
+    lottie_json = load_lottieurl(lottie_url)
+    if lottie_json:
+        st_lottie(lottie_json, speed=1, width=100, height=100)
 
-    st.markdown(f"<div class='{st.session_state.theme}-theme'>", unsafe_allow_html=True)
-
-    col1, col2 = st.columns([1, 12])
-    with col1:
-        st.image("assets/img.webp", width=50)
-    with col2:
-        st.markdown("<h1 style='padding-top: 5px;'>Yabatech Faq Assistant</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Yabatech Faq Assistant</h1>", unsafe_allow_html=True)
 
     st.caption("Ask your question below or upload an image:")
 
@@ -70,7 +66,7 @@ def chatbot_page():
             st.session_state.chat_history.append(("You", user_input))
             st.session_state.chat_history.append(("EduBot", "Goodbye! Stay curious! 👋"))
         else:
-            reply = get_openai_response(user_input)
+            reply = get_dummy_response(user_input)
             st.session_state.chat_history.append(("You", user_input))
             st.session_state.chat_history.append(("EduBot", reply))
         st.rerun()
