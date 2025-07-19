@@ -1,5 +1,5 @@
 import streamlit as st
-from src.utils import get_openai_response, load_api_key
+from utils import get_openai_response, load_api_key
 
 # Load API key
 load_api_key()
@@ -10,7 +10,7 @@ def load_css(file_path):
     with open(file_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-load_css("src/style.css")
+load_css("style.css")
 
 if "page" not in st.session_state:
     st.session_state.page = "welcome"
@@ -34,7 +34,7 @@ def welcome_page():
         st.rerun()
 
 
-from src.utils import process_image_with_ocr
+from utils import process_image_with_ocr
 
 if "theme" not in st.session_state:
     st.session_state.theme = "light"
