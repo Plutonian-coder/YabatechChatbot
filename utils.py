@@ -1,28 +1,16 @@
-import openai
-import os
-from dotenv import load_dotenv
 import pytesseract
 from PIL import Image
+import requests
 
-load_dotenv()
-
-def load_api_key():
-    """Load the OpenAI API key from .env."""
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise ValueError("OPENAI_API_KEY not found in .env file.")
-    openai.api_key = api_key
-
-def get_openai_response(prompt):
-    """Get a response from the OpenAI API."""
+def get_dummy_response(prompt):
+    """Get a response from the dummyjson API."""
     try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=prompt,
-            max_tokens=150,
-            temperature=0.7,
-        )
-        return response.choices[0].text.strip()
+        response = requests.get(f"https://dummyjson.com/todos/search?q={prompt}")
+        data = response.json()
+        if data['todos']:
+            return data['todos'][0]['todo']
+        else:
+            return "I'm not sure how to respond to that."
     except Exception as e:
         return f"An error occurred: {e}"
 

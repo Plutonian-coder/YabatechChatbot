@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap');
+
 /* General styles */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Lexend', sans-serif;
+    color: #00FF00; /* Green text */
 }
 
 .stApp {
-    background-color: #f0f2f6;
+    background-color: #1e1e1e; /* Dark background */
 }
 
 /* Chat bubbles */
@@ -14,33 +17,28 @@ body {
     margin-bottom: 10px;
     max-width: 80%;
     word-wrap: break-word;
+    color: #00FF00; /* Green text */
 }
 
 .user-bubble {
-    background-color: #DCF8C6;
+    background-color: #333333; /* Darker bubble for user */
     align-self: flex-end;
     text-align: right;
 }
 
 .bot-bubble {
-    background-color: #FFFFFF;
+    background-color: #444444; /* Lighter bubble for bot */
     align-self: flex-start;
     text-align: left;
 }
 
-/* Theme toggle */
-.theme-toggle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+/* Fun emojis */
+.user-bubble::before {
+    content: "😎";
+    margin-right: 5px;
 }
 
-/* Dark theme */
-.dark-theme .stApp {
-    background-color: #1a1a1a;
-    color: #ffffff;
-}
-
-.dark-theme .chat-bubble {
-    color: #000000;
+.bot-bubble::before {
+    content: "🤖";
+    margin-right: 5px;
 }
